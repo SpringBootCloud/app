@@ -5,7 +5,9 @@ import net.boddin.clouddemo.config.MyConfig;
 import net.boddin.clouddemo.entity.Feed;
 import net.boddin.clouddemo.repository.FeedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 // @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
 public class DemoController {
 
+
+    private CounterService counterService;
+
     @Value("${my.property}")
     private String prop;
 
@@ -23,19 +28,19 @@ public class DemoController {
 
     private FeedRepository feedRepository;
 
-    public DemoController(FeedRepository feedRepository) {
+    public DemoController(@Qualifier("counterService") CounterService counterService, FeedRepository feedRepository) {
+        this.counterService = counterService;
         this.feedRepository = feedRepository;
     }
 
-    @Secured({"ROLE_USER", "ROLE_ADMINISTRATOR"})
     @RequestMapping("/one")
     public Object getDemoObject(){
+        counterService.increment("custom.metric");
         String foo = "hello " + prop + myConfig.getString1();
         return foo;
     }
 
     @RequestMapping("/admin")
-    @Secured("ROLE_ADMINISTRATOR")
     public Object helloAdmin(){
         String foo = "hello admin";
         return foo;
