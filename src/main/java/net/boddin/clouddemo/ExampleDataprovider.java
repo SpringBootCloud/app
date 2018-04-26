@@ -1,7 +1,9 @@
 package net.boddin.clouddemo;
 
+import net.boddin.clouddemo.entity.Feed;
 import net.boddin.clouddemo.entity.Role;
 import net.boddin.clouddemo.entity.User;
+import net.boddin.clouddemo.repository.FeedRepository;
 import net.boddin.clouddemo.repository.RoleRepository;
 import net.boddin.clouddemo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +17,15 @@ public class ExampleDataprovider implements ApplicationRunner {
 
     private final UserRepository repository;
     private final RoleRepository roleRepository;
+    private final FeedRepository feedRepository;
 
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public ExampleDataprovider(UserRepository repository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public ExampleDataprovider(UserRepository repository, RoleRepository roleRepository, FeedRepository feedRepository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.roleRepository = roleRepository;
+        this.feedRepository = feedRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -47,5 +51,13 @@ public class ExampleDataprovider implements ApplicationRunner {
         admin.getRoles().add(adminRole);
         admin.getRoles().add(actRole);
         repository.save(admin);
+
+        Feed f = new Feed();
+        f.setName("Feed 1");
+        f.getUsers().add(user);
+        f = feedRepository.save(f);
+
+        user.getFeeds().add(f);
+        repository.save(user);
     }
 }

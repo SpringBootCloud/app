@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity(name = "Feed")
@@ -34,6 +35,10 @@ public class Feed {
     private String createdBy;
     @LastModifiedBy
     private String modifiedBy;
+
+    public Feed() {
+        this.users = new ArrayList<>();
+    }
 
     public int getId() {
         return id;

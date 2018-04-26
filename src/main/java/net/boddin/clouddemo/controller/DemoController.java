@@ -1,5 +1,7 @@
-package net.boddin.clouddemo;
+package net.boddin.clouddemo.controller;
 
+
+import net.boddin.clouddemo.config.MyConfig;
 import net.boddin.clouddemo.entity.Feed;
 import net.boddin.clouddemo.repository.FeedRepository;
 import org.springframework.beans.factory.annotation.Autowired;

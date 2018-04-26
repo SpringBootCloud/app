@@ -63,6 +63,7 @@ public class User implements UserDetails {
         this.firstName = firstName;
         this.lastName = lastName;
         this.roles = new ArrayList<>();
+        this.feeds = new ArrayList<>();
     }
 
     public int getId() {

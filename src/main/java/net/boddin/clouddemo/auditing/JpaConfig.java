@@ -1,4 +1,4 @@
-package net.boddin.clouddemo;
+package net.boddin.clouddemo.auditing;
 
 import net.boddin.clouddemo.auditing.AuditorAwareImpl;
 import org.springframework.context.annotation.Bean;
