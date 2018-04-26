@@ -29,9 +29,11 @@ public class ExampleDataprovider implements ApplicationRunner {
     public void run(ApplicationArguments applicationArguments) {
         Role userRole = new Role("USER");
         Role adminRole = new Role("ADMINISTRATOR");
+        Role actRole = new Role("ACTUATOR");
 
         userRole = roleRepository.save(userRole);
         adminRole = roleRepository.save(adminRole);
+        actRole = roleRepository.save(actRole);
 
         User user = new User("user", "user");
         user.setUsername("user");
@@ -43,6 +45,7 @@ public class ExampleDataprovider implements ApplicationRunner {
         admin.setPassword(passwordEncoder.encode("admin"));
         admin.getRoles().add(userRole);
         admin.getRoles().add(adminRole);
+        admin.getRoles().add(actRole);
         repository.save(admin);
     }
 }

@@ -8,10 +8,7 @@ import net.boddin.clouddemo.repository.FeedRepository;
 import net.boddin.clouddemo.repository.PostRepository;
 import net.boddin.clouddemo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -27,15 +24,17 @@ public class UserController {
         this.postRepository = postRepository;
     }
 
-    @PostMapping("/user/{id}/post")
-    public int createPost(@RequestBody PostCreateDto dto, @PathVariable int id){
-        User user = userRepository.findOne(id);
-        Feed feed = feedRepository.findOne(dto.getFeedId());
-        Post p = new Post();
-        p.setFeed(feed);
-        p.setUser(user);
-        p.setText(dto.getText());
-        p = postRepository.save(p);
-        return p.getId();
+    // @PostMapping("/user/{id}/post")
+    @GetMapping("/post/{feedId}/{text}")
+    public int createPost(@PathVariable String text, @PathVariable int feedId){
+//        User user = userRepository.findOne(id);
+//        Feed feed = feedRepository.findOne(dto.getFeedId());
+//        Post p = new Post();
+//        p.setFeed(feed);
+//        p.setUser(user);
+//        p.setText(dto.getText());
+//        p = postRepository.save(p);
+//        return p.getId();
+        return 0;
     }
 }
